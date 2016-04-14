@@ -1,0 +1,10 @@
+<% if @post.save %>
+    window.location='/posts/<%= @post.id %>'
+<% else %>
+    swal({   
+        title: "Try it again!",   
+        text: "<%= j (@post.errors.full_messages.first).html_safe %>",   
+        type: "error",
+        timer: 3000
+        });
+<% end %>

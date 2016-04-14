@@ -1,0 +1,3 @@
+$('.follow_button_show').replaceWith('<%= j render "partials/follow", user: @user %>');
+$('.followers_count').replaceWith('<div class="followers_count"><strong>(<%= @user.users_followers.count %>)</strong></div>')
+

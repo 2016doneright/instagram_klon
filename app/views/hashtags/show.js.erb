@@ -1,0 +1,3 @@
+$('.whole').append('<%= j render 'hashtags/hashtag_partial' %>');
+$('.pagination').replaceWith('<%= will_paginate @hashtagged %>');
+$('.pagination').css({'display': 'none'});

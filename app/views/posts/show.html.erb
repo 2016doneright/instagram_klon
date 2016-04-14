@@ -1,0 +1,103 @@
+<div class="showpage_cover">
+  <div data-ix="new-interaction-3" class="w-section sec">
+    <div class="w-row row">
+      <div class="w-col w-col-8 w-clearfix aa">
+        <% if @next_post.present? %>
+          <%= link_to post_path(@next_post), class: "w-inline-block next_right" do %>
+            <img src="https://daks2k3a4ib2z.cloudfront.net/55e6c526dd5145120d31e534/5667659b25c0db4a57d35238_54b3b0f1a8a7eedc23df755c_chevron-thin-right.svg" class="rigth">
+            <link rel="prefetch" href="<%= Post.find(@next_post).image.url %>">
+          <% end %>
+        <% end %>
+        <%= image_tag(@post.image.url, class: "hero_showpage") %>
+        
+        <% if @prev_post.present? %>
+          <%= link_to post_path(@prev_post), class: "w-inline-block previous_left" do %>
+            <img width="10" src="https://daks2k3a4ib2z.cloudfront.net/55e6c526dd5145120d31e534/5667659d70b75f3564f2801f_54b3b0e4b936169d36228498_chevron-thin-left.svg" class="left">
+            <link rel="prefetch" href="<%= Post.find(@prev_post).image.url %>">
+          <% end %>
+        <% end %>
+      </div>
+      <div class="w-col w-col-4 bb">
+        <div class="post_header">
+          
+          <%= render 'posts/like', post: @post %>
+          
+          <%= link_to gimme_profile_path(@post.user.profile_name), class: "w-inline-block post_avatar", data: {no_turbolink: 'true'} do %>
+            <%= image_tag(@post.user.avatar.url, class: "post_avatar_round") %>
+          <% end %>
+          
+          <%= render 'posts/follow', user: @post.user %>
+          
+        </div>
+        <ul class="w-list-unstyled list">
+          <%= render @comments %>
+        </ul>
+        <div class="create_comment">
+          <div class="w-form">
+            <%= form_for [@post, Comment.new], data: { remote: true} do |f| %>
+              <%= f.text_area :content, rows: 3, placeholder: 'Try @, # or whatever your heart wish.', class: 'w-input comment_content', autocomplete: "off" %>
+              <%= f.submit 'Create a comment', class: 'w-button submit_button', data: {disable_with: 'Sending ...'} %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="repin_close">
+    <div><img src="https://daks2k3a4ib2z.cloudfront.net/55e6c526dd5145120d31e534/567d420bc403fc33762e7783_circle-with-cross.svg"></div>
+</div>
+
+
+<script>
+
+    var ready;
+    ready = function() {
+      
+    $('.repin_close').click(function(){window.location = '/'});  
+  
+    $(".bb").niceScroll({
+      zindex: 9999,
+      cursorborder: "0px",
+      background: 'gray',
+      cursorwidth: '7px'
+    });
+    
+    if (gon.following) {
+      var data = gon.following;
+    }
+    
+    $('.comment_content').atwho({
+      at: "@",
+      'data': data,
+      limit: 10,
+      highlightFirst: true
+    });
+    
+    var hashtags = [ "pavlik", "fashion", "friends", "smile", "like4like", "instamood", "family", "amazing", "nofilter", "style", "follow4follow", "sun", "tflers", "beach", "lol", "hair", "iphoneonly", "cool", "girls", "webstagram", "funny", "iphonesia", "tweegram", "black", "instacool", "makeup", "igdaily", "instagramhub", "awesome", "instafollow", "bored", "nice", "eyes", "all_shots", "throwback", "look"]
+    
+    $('.comment_content').atwho({
+      at: '#',
+      'data': hashtags,
+      limit: 25,
+      highlightFirst: true
+    })
+    
+    $(document).on('keyup', function(e) {
+      if (e.keyCode == 37) {
+        $('.previous_left')[0].click();
+      }
+      if (e.keyCode == 39) {
+        $('.next_right')[0].click();
+      }
+    })
+    
+    
+    };
+    
+    $(document).ready(ready);
+    $(document).on('page:load', ready);
+    
+</script>

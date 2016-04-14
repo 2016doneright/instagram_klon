@@ -1,0 +1,19 @@
+<div data-collapse="medium" data-animation="default" data-duration="400" data-contain="1" class="w-nav navbar">
+    <div class="w-container">
+        <nav role="navigation" class="w-nav-menu nav_menu">
+            
+        <%= link_to root_path, class: 'w-nav-link', data: {no_turbolink: 'true'} do %> To my feed <% end %>
+        <%= link_to destroy_user_session_path, method: :delete, class: "w-nav-link" do %>Sign is as different user (one click)<% end %>
+        <%= link_to gimme_profile_path(current_user.profile_name), class: "w-nav-link user_real_name", data: {no_turbolink: 'true'} do %>
+                <%= image_tag(current_user.avatar.url, class: "navbar_avatar") %>
+        <% end %>
+        <%= link_to gimme_profile_path(current_user.profile_name), class: "w-nav-link user_real_name", data: {no_turbolink: 'true'} do %>
+            <%= current_user.real_name %>
+        <% end %>
+        </nav>
+        
+        <div class="w-nav-button">
+            <div class="w-icon-nav-menu"></div>
+        </div>
+    </div>
+</div>

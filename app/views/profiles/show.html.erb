@@ -1,0 +1,126 @@
+<%= render 'partials/nav' %>
+<div class="person_profile_section">
+    <div class="w-container">
+        <div class="w-row">
+            <div class="w-col w-col-4 column1">
+                <div class="user_avatar_profile">
+                    <%= image_tag(@user.avatar.url, class: "user_avatar") %>
+                </div>
+            </div>
+            <div class="w-col w-col-8">
+                <div class="peson_info_block">
+                    <div class="w-clearfix replace">
+                        <%= render 'partials/follow', user: @user %>
+                        <div class="profile_name"><%= @user.real_name %></div>
+                    </div>
+                    <div class="person_description">
+                        <div class="users_description"><%= @user.description %></div>
+                    </div>
+                    <div class="w-clearfix person_stats">
+                        <div class="w-clearfix posts_parent">
+                            <div class="stats_text">Posts</div>
+                            <div class="posts_count"><strong data-new-link="true">(<%= @user.posts.count%>)</strong></div>
+                        </div>
+                        <div class="w-clearfix followers_parent">
+                            <div class="stats_text">Followers</div>
+                            <div class="followers_count"><strong data-new-link="true">(<%= @user.followers.count%>)</strong></div>
+                        </div>
+                        <div class="w-clearfix following_parent">
+                            <div class="stats_text">Following</div>
+                            <div class="following_count"><strong data-new-link="true">(<%= @user.following_users.count %>)</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="profile_page_feed">
+    <div class="w-container whole">
+        <%= render @posts %>
+    </div>
+</div>
+
+<div class="la-ball-newton-cradle la-dark" style='margin:auto; margin-top:5%; margin-bottom:5%; display:none;'>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+
+<%= will_paginate @posts %>
+
+<script>
+    
+    var ready;
+    ready = function() {
+        
+        $('.pagination').css({
+            'display': 'none'
+        });
+    
+        $('.profile_post').on('mouseenter', function() {
+            $(this).find('.profile_cover').css({
+                "opacity": 1,
+                "transition": "opacity 250ms ease 0ms"
+            });
+            $(this).find('.stats_holder').css({
+                "transition": "transform 250ms cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+                "transform": "scale(1)"
+            })
+        });
+        $('.profile_post').on('mouseleave', function() {
+            $(this).find('.profile_cover').css({
+                "opacity": 0,
+                "transition": "opacity 250ms ease 0ms"
+            });
+            $(this).find('.stats_holder').css({
+                "transition": "transform 250ms cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+                "transform": "scale(0.6)"
+            })
+        });
+    
+        $(window).bindWithDelay("scroll", function() {
+            var url = $('.pagination .next_page').attr('href');
+            if (url && $(window).height() > $(document).height() - $(window).scrollTop() - 150) {
+                $('.la-dark').css({
+                    'display': 'block'
+                })
+                $.ajax({
+                    url: url,
+                    dataType: ('script'),
+                    success: function() {
+                        $('.la-dark').css({
+                            'display': 'none'
+                        });
+                        $('.profile_post').on('mouseenter', function() {
+                            $(this).find('.profile_cover').css({
+                                "opacity": 1,
+                                "transition": "opacity 250ms ease 0ms"
+                            });
+                            $(this).find('.stats_holder').css({
+                                "transition": "transform 250ms cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+                                "transform": "scale(1)"
+                            })
+                        });
+                        $('.profile_post').on('mouseleave', function() {
+                            $(this).find('.profile_cover').css({
+                                "opacity": 0,
+                                "transition": "opacity 250ms ease 0ms"
+                            });
+                            $(this).find('.stats_holder').css({
+                                "transition": "transform 250ms cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+                                "transform": "scale(0.6)"
+                            })
+                        });
+                    }
+                });
+            }
+        }, 500);
+    
+    };
+    
+    $(document).ready(ready);
+    $(document).on('page:load', ready);
+    
+</script>

@@ -1,0 +1,10 @@
+<%= link_to post_path(post), class: "w-inline-block profile_post", data: {no_turbolink: 'true'} do %>
+    <div class="pic_div" style='background-image: url(<%= post.image.url(:frontpage) %>)'>
+        <div class="profile_cover">
+            <div class="stats_holder"><img width="20" src="https://daks2k3a4ib2z.cloudfront.net/55e6c526dd5145120d31e534/566e581b479e02e227742707_chat_white.svg" class="chat_symbol">
+                <div class="cover_comments">(<%= post.comments.count%>)</div><img width="130" src="https://daks2k3a4ib2z.cloudfront.net/55e6c526dd5145120d31e534/566e58145e6bd7613215a423_heart_white.svg" class="heart_symbol">
+                <div class="cover_likes">(<%= post.get_likes.count %>)</div>
+            </div>
+        </div>
+    </div>
+<% end %>

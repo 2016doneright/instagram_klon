@@ -1,0 +1,13 @@
+<% if @comment.save %>
+
+$('.comment_content').val('');
+$('.list').append('<%= j (render "comments/comment", comment: @comment) %>');
+
+<% else %>
+    swal({   
+        title: "Try to write something!",   
+        text: "<%= j (@comment.errors.full_messages.first).html_safe %>",   
+        type: "error",
+        timer: 3000
+        });
+<% end %>

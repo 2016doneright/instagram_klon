@@ -1,0 +1,97 @@
+<%= render 'partials/nav' %>
+<%= render 'partials/upload_cover' %>
+<div class="person_profile_section">
+    <%= image_tag 'upload-to-cloud.svg', class: 'upload_icon' %>
+    <div class="w-container">
+        <div class="w-row">
+            <div class="w-col w-col-4 column1">
+                <div class="user_avatar_profile">
+                    <%= image_tag(current_user.avatar.url, class: "user_avatar") %>
+                </div>
+            </div>
+            <div class="w-col w-col-8">
+                <div class="peson_info_block">
+                    <div class="w-clearfix profile_name">
+                        Welcome back
+                        <div class="profile_name"><%= current_user.real_name%></div>
+                    </div>
+                    <div class="person_description">
+                        <div class="users_description"><%= current_user.description || '' %></div>
+                    </div>
+                    <div class="w-clearfix person_stats">
+                        <div class="w-clearfix posts_parent">
+                            <div class="stats_text">Posts</div>
+                            <div class="posts_count"><strong data-new-link="true">(<%= current_user.posts.count%>)</strong></div>
+                        </div>
+                        <div class="w-clearfix followers_parent">
+                            <div class="stats_text">Followers</div>
+                            <div class="followers_count"><strong data-new-link="true">(<%= current_user.followers.count%>)</strong></div>
+                        </div>
+                        <div class="w-clearfix following_parent">
+                            <div class="stats_text">Following</div>
+                            <div class="following_count"><strong data-new-link="true">(<%= current_user.following_users.count %>)</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="feed root">
+    <div class="w-container all_together">
+        <%= render "base/post", post: @posts %>
+    </div>
+</div>
+
+<div class="la-ball-newton-cradle la-dark" style='margin:auto; margin-top:5%; margin-bottom:5%; display:none;'>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+
+<%= will_paginate @posts %>
+
+<script>
+    var ready;
+    
+    ready = function() {
+        
+        $('.upload_icon').click(function(){
+            $('.upload_cover').css({'display':'block'});
+        });
+        
+        $('.repin_close').click(function(){
+            $('.upload_cover').css({'display':'none'})    
+        })
+        
+        $('.pagination').css({'display': 'none'});
+    
+        $(window).bindWithDelay("scroll", function() {
+            var url = $('.pagination .next_page').attr('href');
+            if (url && $(window).height() > $(document).height() - $(window).scrollTop() - 150) {
+                $('.la-dark').css({'display': 'block'})
+                $.ajax({
+                    url: url,
+                    dataType: ('script'),
+                    success: function() {
+                        $('.la-dark').css({'display': 'none'});
+                        
+                    }
+                });
+            }
+        }, 500);
+        
+        $(document).on('keyup', function(e){
+            if (e.keyCode == 27){
+        $('.repin_close').click();
+        }
+        })
+      
+    
+    };
+    
+    $(document).ready(ready);
+    $(document).on('page:load', ready);
+    
+</script>

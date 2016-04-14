@@ -1,0 +1,10 @@
+<% @posts.each do |post| %>
+    <%= link_to post_path(post), class: "w-inline-block feed_post", data: {no_turbolink: 'true'} do %>
+        <div class="feed_div_pic" style='background-image: url(<%= post.image.url(:frontpage) %>)'>
+            <div class="feed_cover">
+                <%= image_tag(post.user.avatar.url, class: "feed_avatar") %>
+                <h5 class="feed_text"><%= post.title %></h5>
+            </div>
+        </div>
+    <% end %>
+<% end %>

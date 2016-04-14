@@ -1,0 +1,11 @@
+<% if current_user.liked?(post) %>
+    <%= link_to unlike_this_post_path(post), method: :delete, remote: true, class: "w-inline-block like_button_show" do%>
+        <div class="like_text">unLike</div>
+        <div class="like_count">(<%= post.get_likes.count %>)</div>
+    <% end %>
+<% else %>
+    <%= link_to like_this_post_path(post), method: :put, remote: true, class: "w-inline-block like_button_show" do %>
+        <div class="like_text">Like</div>
+        <div class="like_count">(<%= post.get_likes.count %>)</div>
+    <% end %>
+<% end %>

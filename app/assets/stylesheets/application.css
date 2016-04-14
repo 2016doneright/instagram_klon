@@ -1,0 +1,129 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require sweetalert
+ *= require_tree .
+ *= require_self
+ */
+ 
+ .repin_close {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  display: block;
+  width: 35px;
+  height: 35px;
+  padding: 5px;
+  border-radius: 50%;
+  background-color: white;
+  font-family: Lato, sans-serif;
+  color: black;
+  cursor: pointer;
+  z-index:1500;
+ }
+
+
+.profile_button {
+  position: relative;
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+
+.upload_icon {
+ width: 75px;
+ opacity: 0.5;
+ cursor: pointer;
+}
+
+.upload_icon:hover {
+ opacity: 1;
+}
+
+.inputfile {
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.link_back_button {
+  position: fixed;
+  top: 30%;
+  right: 0px;
+  display: block;
+  padding: 2%;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
+  background-color: #0098ff;
+  box-shadow: black 0px 0px 8px 0px inset;
+  -webkit-transform: translate(95%, 0px);
+  -ms-transform: translate(95%, 0px);
+  transform: translate(95%, 0px);
+  color: white;
+  font-size: 1em;
+  line-height: 1em;
+  text-align: center;
+  text-decoration: none;
+  z-index: 1010;
+}
+
+.link_back_button:hover {
+  border-radius: 10px 0px 0px 10px;
+  box-shadow: none;
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+
+.pavlik {
+  width: 250px;
+  border: 1px none black;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.link_text {
+  font-family: Lato, sans-serif;
+  font-size: 1em;
+  line-height: 1.2em;
+  font-weight: 700;
+  text-align: center;
+}
+
+#inner-editor {
+  font-size: 14px;
+}
+@media (max-width: 991px) {
+ .pavlik {
+   width: 150px;
+ } 
+}
+
+@media (max-width: 767px) {
+ .pavlik {
+   width: 50px;
+ } 
+ 
+ .upload_holder {
+   position: static;
+ }
+ 
+ .upload_cover {
+    padding: 0px;
+  }
+}
+
+@media (max-width: 479px) {
+  .upload_holder {
+    position: relative;
+  }
+}

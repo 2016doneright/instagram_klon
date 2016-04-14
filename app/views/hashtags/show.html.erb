@@ -1,0 +1,97 @@
+<%= render 'partials/nav' %>
+
+<h1>#<%= params[:hashtag] %></h1><h5>(of course they are computer generated and therefore tag does not match the picture)</h5><br>
+<% if @hashtagged %>
+  <div class="feed root">
+    <div class="w-container whole">
+      <%= render 'hashtags/hashtag_partial' %>
+    </div>
+  </div>
+<% else %>
+  <p>There is no match for the <em><%= params[:hashtag] %></em> hashtag.</p>
+<% end %>
+
+<%= will_paginate @hashtagged %>
+
+<div class="la-ball-newton-cradle la-dark" style='margin:auto; margin-top:5%; margin-bottom:5%; display:none;'>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+
+<script>
+    
+   var ready;
+    ready = function() {
+    
+        $('.pagination').css({
+            'display': 'none'
+        });
+    
+        $('.profile_post').on('mouseenter', function() {
+            $(this).find('.profile_cover').css({
+                "opacity": 1,
+                "transition": "opacity 250ms ease 0ms"
+            });
+            $(this).find('.stats_holder').css({
+                "transition": "transform 250ms cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+                "transform": "scale(1)"
+            })
+        });
+        $('.profile_post').on('mouseleave', function() {
+            $(this).find('.profile_cover').css({
+                "opacity": 0,
+                "transition": "opacity 250ms ease 0ms"
+            });
+            $(this).find('.stats_holder').css({
+                "transition": "transform 250ms cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+                "transform": "scale(0.6)"
+            })
+        });
+    
+        $(window).bindWithDelay("scroll", function() {
+            var url = $('.pagination .next_page').attr('href');
+            if (url && $(window).height() > $(document).height() - $(window).scrollTop() - 150) {
+                $('.la-dark').css({
+                    'display': 'block'
+                })
+                $.ajax({
+                    url: url,
+                    dataType: ('script'),
+                    success: function() {
+                        $('.la-dark').css({
+                            'display': 'none'
+                        });
+                        $('.profile_post').on('mouseenter', function() {
+                            $(this).find('.profile_cover').css({
+                                "opacity": 1,
+                                "transition": "opacity 250ms ease 0ms"
+                            });
+                            $(this).find('.stats_holder').css({
+                                "transition": "transform 250ms cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+                                "transform": "scale(1)"
+                            })
+                        });
+                        $('.profile_post').on('mouseleave', function() {
+                            $(this).find('.profile_cover').css({
+                                "opacity": 0,
+                                "transition": "opacity 250ms ease 0ms"
+                            });
+                            $(this).find('.stats_holder').css({
+                                "transition": "transform 250ms cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+                                "transform": "scale(0.6)"
+                            })
+                        });
+                    }
+                });
+            }
+        }, 500);
+    
+    };
+    
+    $(document).ready(ready);
+    $(document).on('page:load', ready);
+    
+    
+</script>

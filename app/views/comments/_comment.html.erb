@@ -1,0 +1,13 @@
+<li class="comment comment_<%= comment.id%>" >
+    <%= link_to gimme_profile_path(comment.user.profile_name), class: "user_link", data: {no_turbolink: 'true'} do %>
+        <strong><%= comment.user.profile_name %></strong>
+    <% end %>
+    <%= linked_users(linkify_hashtags(comment.content)) %>
+    <% if comment.user == current_user %>
+        <%= link_to comment_path(comment), method: :delete, remote: true do %>
+            <img width="15" src="https://daks2k3a4ib2z.cloudfront.net/55e6c526dd5145120d31e534/567d420bc403fc33762e7783_circle-with-cross.svg" class="ff">
+        <% end %>
+    <% end %>
+</li>
+          
+          
